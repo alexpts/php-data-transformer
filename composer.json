@@ -1,0 +1,29 @@
+{
+    "name": "alexpts/php-simple-events",
+    "description": "Simple events and filters",
+    "homepage": "https://github.com/alexpts/php-simple-events",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "events",
+        "filters"
+    ],
+    "authors": [{
+        "name": "Alexpts",
+        "email": "alexpts3@gmail.com"
+    }],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">5.5",
+        "symfony/yaml": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.1.3",
+        "codeclimate/php-test-reporter": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "PTS\\Events": "src"
+        }
+    }
+}
