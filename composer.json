@@ -1,12 +1,15 @@
 {
-    "name": "alexpts/php-simple-events",
-    "description": "Simple events and filters",
-    "homepage": "https://github.com/alexpts/php-simple-events",
+    "name": "alexpts/php-data-transformer",
+    "description": "Transform model to data and back",
+    "homepage": "https://github.com/alexpts/php-data-transformer",
     "license": "MIT",
     "type": "library",
     "keywords": [
-        "events",
-        "filters"
+        "model",
+        "converter",
+        "transform",
+        "dto",
+        "data"
     ],
     "authors": [{
         "name": "Alexpts",
@@ -19,11 +22,12 @@
     },
     "require-dev": {
         "phpunit/phpunit": "5.1.3",
-        "codeclimate/php-test-reporter": "dev-master"
+        "codeclimate/php-test-reporter": "dev-master",
+        "mockery/mockery": "^0.9.4"
     },
     "autoload": {
         "psr-0": {
-            "PTS\\Events": "src"
+            "PTS\\DataTransformer": "src"
         }
     }
 }

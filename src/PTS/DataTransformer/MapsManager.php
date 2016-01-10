@@ -1,7 +1,7 @@
 <?php
 namespace PTS\DataTransformer;
 
-use \Exception;
+use Exception;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Parser as YamlParser;
 
