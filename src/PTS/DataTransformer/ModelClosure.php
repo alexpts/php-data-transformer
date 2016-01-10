@@ -42,6 +42,7 @@ class ModelClosure
             foreach ($mapping as $name => $prop) {
                 $getter = array_key_exists('get', $prop) ? $prop['get'] : null;
                 $propVal = array_key_exists('prop', $prop) ? $prop['prop'] : null;
+                $val = null;
 
                 if ($getter) {
                     $method = is_array($getter) ? $getter[0] : $getter;
@@ -49,8 +50,6 @@ class ModelClosure
                     $val = call_user_func_array([$this, $method], $args);
                 } elseif ($propVal) {
                     $val = $this->{$propVal};
-                } else {
-                    throw new \InvalidArgumentException('Bad mapping config');
                 }
 
                 if ($val !== null) {

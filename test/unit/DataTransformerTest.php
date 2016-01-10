@@ -53,17 +53,6 @@ class DataTransformerTest extends PHPUnit_Framework_TestCase
         self::assertTrue($dto['active']);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Bad mapping config
-     */
-    public function testGetDataFromBadConfig()
-    {
-        $user = $this->createUser();
-        $this->transformer->getMapsManager()->setMapDir(UserModel::class, __DIR__ . '/data');
-        $this->transformer->getData($user, 'bad-dto');
-    }
-
     public function testFillModel()
     {
         $data = [
