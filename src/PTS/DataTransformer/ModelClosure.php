@@ -40,8 +40,8 @@ class ModelClosure
             $props = [];
 
             foreach ($mapping as $name => $prop) {
-                $getter = isset($prop['get']) ? $prop['get'] : null;
-                $propVal = isset($prop['prop']) ? $prop['prop'] : null;
+                $getter = array_key_exists('get', $prop) ? $prop['get'] : null;
+                $propVal = array_key_exists('prop', $prop) ? $prop['prop'] : null;
 
                 if ($getter) {
                     $method = is_array($getter) ? $getter[0] : $getter;
