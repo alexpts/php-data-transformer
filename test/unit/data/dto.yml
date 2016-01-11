@@ -4,6 +4,7 @@ id:
 login:
     type: string
     get: getLogin
+    set: setLogin
 name:
     type: string
     prop: name
