@@ -16,7 +16,7 @@ class IntType
      * @param mixed $value
      * @return int
      */
-    public function toStorage($value)
+    public function toData($value)
     {
         return (int)$value;
     }

@@ -53,7 +53,7 @@ class ModelClosure
                 }
 
                 if ($val !== null) {
-                    $props[$name] = $typeConverter->toStorage($val, $prop);
+                    $props[$name] = $typeConverter->toData($val, $prop);
                 }
             }
 

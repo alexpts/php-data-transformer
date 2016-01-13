@@ -16,7 +16,7 @@ class DateType
      * @param \DateTime $value
      * @return \DateTime
      */
-    public function toStorage(\DateTime $value)
+    public function toData(\DateTime $value)
     {
         return $value;
     }

@@ -11,12 +11,11 @@ class TypeConverter
     public function __construct()
     {
         $this->types = [
+            'proxy' => new Types\BaseType,
             'string' => new Types\StringType,
             'int' => new Types\IntType,
             'array' => new Types\ArrayType,
             'date' => new Types\DateType,
-            'mongoDate' => new Types\MongoDateType,
-            'id' => new Types\MongoIdType,
             'float' => new Types\FloatType,
             'bool' => new Types\BoolType,
             'refModels' => new Types\RefModelsType,
@@ -48,9 +47,9 @@ class TypeConverter
      * @param array $prop
      * @return mixed
      */
-    public function toStorage($val, array $prop)
+    public function toData($val, array $prop)
     {
-        return $this->types[$prop['type']]->toStorage($val);
+        return $this->types[$prop['type']]->toData($val);
     }
 
     /**

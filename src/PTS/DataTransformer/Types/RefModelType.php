@@ -7,11 +7,11 @@ class RefModelType
 {
     /**
      * @param ModelInterface $value
-     * @return \MongoId
+     * @return mixed
      */
-    public function toStorage(ModelInterface $value)
+    public function toData(ModelInterface $value)
     {
-        return new \MongoId($value->getId());
+        return $value->getId();
     }
 
     /**

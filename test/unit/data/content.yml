@@ -1,0 +1,30 @@
+id:
+    type: int
+    get: getId
+title:
+    type: string
+    prop: title
+cats:
+    type: array
+    prop: cats
+active:
+    type: bool
+    prop: active
+creAt:
+    type: date
+    prop: creAt
+any:
+    type: proxy
+    prop: any
+float:
+    type: float
+    prop: float
+count:
+    type: int
+    prop: count
+user:
+    type: refModel
+    prop: user
+similarContent:
+    type: refModels
+    prop: similarContent

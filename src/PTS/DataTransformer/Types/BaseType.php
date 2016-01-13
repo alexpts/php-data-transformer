@@ -16,7 +16,7 @@ class BaseType
      * @param mixed $value
      * @return mixed
      */
-    public function toStorage($value)
+    public function toData($value)
     {
         return $value;
     }

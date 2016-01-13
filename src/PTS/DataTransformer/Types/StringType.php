@@ -16,7 +16,7 @@ class StringType
      * @param mixed $value
      * @return string
      */
-    public function toStorage($value)
+    public function toData($value)
     {
         return (string)$value;
     }

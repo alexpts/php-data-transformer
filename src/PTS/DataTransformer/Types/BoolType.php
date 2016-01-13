@@ -16,7 +16,7 @@ class BoolType
      * @param bool $value
      * @return bool
      */
-    public function toStorage($value)
+    public function toData($value)
     {
         return (bool)$value;
     }

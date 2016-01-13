@@ -16,7 +16,7 @@ class FloatType
      * @param float $value
      * @return float
      */
-    public function toStorage($value)
+    public function toData($value)
     {
         return (float)$value;
     }

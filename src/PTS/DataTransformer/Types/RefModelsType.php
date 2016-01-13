@@ -7,9 +7,9 @@ class RefModelsType
 {
     /**
      * @param string[]|ModelInterface[] $value
-     * @return \MongoId[]
+     * @return mixed[]
      */
-    public function toStorage(array $value)
+    public function toData(array $value)
     {
         $newValue = [];
         foreach ($value as $model) {
@@ -19,7 +19,7 @@ class RefModelsType
                 $refId = $model->getId();
             }
 
-            $newValue[] = new \MongoId($refId);
+            $newValue[] = $refId;
         }
 
         return $newValue;

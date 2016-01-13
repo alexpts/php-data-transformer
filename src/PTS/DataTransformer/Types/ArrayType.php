@@ -16,7 +16,7 @@ class ArrayType
      * @param array $value
      * @return array
      */
-    public function toStorage(array $value)
+    public function toData(array $value)
     {
         return $value;
     }
