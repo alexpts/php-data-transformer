@@ -19,7 +19,7 @@ class TypeConverter
             'float' => new Types\FloatType,
             'bool' => new Types\BoolType,
             'refModels' => new Types\RefModelsType,
-            'refModel' => new Types\RefModelType,
+            'refModel' => new Types\RefModelType
         ];
     }
 
