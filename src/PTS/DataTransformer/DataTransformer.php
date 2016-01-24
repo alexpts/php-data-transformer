@@ -33,6 +33,14 @@ class DataTransformer implements DataTransformerInterface
     }
 
     /**
+     * @return TypeConverter
+     */
+    public function getConverter()
+    {
+        return $this->typeConverter;
+    }
+
+    /**
      * @param ModelInterface $model
      * @param string $mapType
      * @return array

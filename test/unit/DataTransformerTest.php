@@ -25,6 +25,11 @@ class DataTransformerTest extends PHPUnit_Framework_TestCase
         self::assertInstanceOf(__NAMESPACE__ . '\MapsManager', $this->transformer->getMapsManager());
     }
 
+    public function testGetConverter()
+    {
+        self::assertInstanceOf(__NAMESPACE__ . '\TypeConverter', $this->transformer->getConverter());
+    }
+
     /**
      * @return UserModel
      */
