@@ -18,6 +18,7 @@ class TypeConverter
             'date' => new Types\DateType,
             'float' => new Types\FloatType,
             'bool' => new Types\BoolType,
+            'refModelsToArrayStringId' => new Types\RefModelsToArrayStringIdType,
             'refModels' => new Types\RefModelsType,
             'refModel' => new Types\RefModelType
         ];
@@ -44,21 +45,23 @@ class TypeConverter
 
     /**
      * @param mixed $val
-     * @param array $prop
+     * @param array $propRule
+     * @param DataTransformer $transformer
      * @return mixed
      */
-    public function toData($val, array $prop)
+    public function toData($val, array $propRule, DataTransformer $transformer)
     {
-        return $this->types[$prop['type']]->toData($val);
+        return $this->types[$propRule['type']]->toData($val, $propRule, $transformer);
     }
 
     /**
      * @param mixed $val
-     * @param array $prop
+     * @param array $propRule
+     * @param DataTransformer $transformer
      * @return mixed
      */
-    public function toModel($val, array $prop)
+    public function toModel($val, array $propRule, DataTransformer $transformer)
     {
-        return $this->types[$prop['type']]->toModel($val);
+        return $this->types[$propRule['type']]->toModel($val, $propRule, $transformer);
     }
 }

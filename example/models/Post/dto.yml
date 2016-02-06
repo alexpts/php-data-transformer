@@ -1,0 +1,18 @@
+id:
+  type: int
+  get: getId
+title:
+  type: string
+  get: getTitle
+  set: setTitle
+content:
+  type: string
+  get: getContent
+  set: setContent
+tags:
+  type: refModels
+  get: getTags
+  set: setTags
+  rel:
+    model: Tag
+    map: dto

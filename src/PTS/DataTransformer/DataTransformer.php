@@ -52,7 +52,7 @@ class DataTransformer implements DataTransformerInterface
         $class = get_class($model);
         $fn = \Closure::bind($this->closuresFn->getToDataFn(), $model, $class);
         $map = $this->mapsManager->getMap($class, $mapType);
-        return $fn($map, $this->typeConverter);
+        return $fn($map, $this);
     }
 
     /**
@@ -67,7 +67,7 @@ class DataTransformer implements DataTransformerInterface
         $class = get_class($model);
         $fn = \Closure::bind($this->closuresFn->getFillFn(), $model, $class);
         $map = $this->mapsManager->getMap($class, $mapType);
-        $fn($data, $map, $this->typeConverter);
+        $fn($data, $map, $this);
     }
 
     /**

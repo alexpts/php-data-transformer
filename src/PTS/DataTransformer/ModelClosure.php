@@ -36,12 +36,13 @@ class ModelClosure
      * @return \Closure
      */
     protected function createDataFn() {
-        return function (array $mapping, TypeConverter $typeConverter) {
+        return function (array $mapping, DataTransformer $transformer) {
+            $typeConverter = $transformer->getConverter();
             $props = [];
 
-            foreach ($mapping as $name => $prop) {
-                $getter = array_key_exists('get', $prop) ? $prop['get'] : null;
-                $propVal = array_key_exists('prop', $prop) ? $prop['prop'] : null;
+            foreach ($mapping as $name => $propRule) {
+                $getter = array_key_exists('get', $propRule) ? $propRule['get'] : null;
+                $propVal = array_key_exists('prop', $propRule) ? $propRule['prop'] : null;
                 $val = null;
 
                 if ($getter) {
@@ -53,7 +54,7 @@ class ModelClosure
                 }
 
                 if ($val !== null) {
-                    $props[$name] = $typeConverter->toData($val, $prop);
+                    $props[$name] = $typeConverter->toData($val, $propRule, $transformer);
                 }
             }
 
@@ -66,18 +67,20 @@ class ModelClosure
      */
     protected function createFillFn()
     {
-        return function(array $doc, array $mapping, TypeConverter $typeConverter) {
+        return function(array $doc, array $mapping, DataTransformer $transformer) {
+            $typeConverter = $transformer->getConverter();
+
             foreach ($doc as $name => $val) {
                 if (!array_key_exists($name, $mapping)) {
                     continue;
                 }
 
-                $prop = $mapping[$name];
+                $propRule = $mapping[$name];
 
-                $modelName = array_key_exists('prop', $prop) ? $prop['prop'] : $name;
-                $setter = array_key_exists('set', $prop) ? $prop['set'] : null;
+                $modelName = array_key_exists('prop', $propRule) ? $propRule['prop'] : $name;
+                $setter = array_key_exists('set', $propRule) ? $propRule['set'] : null;
 
-                $val = $typeConverter->toModel($val, $prop);
+                $val = $typeConverter->toModel($val, $propRule, $transformer);
 
                 $setter
                     ? call_user_func([$this, $setter], $val)

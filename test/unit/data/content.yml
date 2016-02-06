@@ -26,5 +26,5 @@ user:
     type: refModel
     prop: user
 similarContent:
-    type: refModels
+    type: refModelsToArrayStringId
     prop: similarContent

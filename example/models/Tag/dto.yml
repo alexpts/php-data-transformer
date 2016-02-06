@@ -1,0 +1,7 @@
+id:
+    type: int
+    get: getId
+title:
+    type: string
+    get: getTitle
+    set: setTitle
