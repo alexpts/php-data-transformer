@@ -44,6 +44,12 @@ creAt:
 email:
     type: string
     prop: email
+roles:
+    type: refModels
+    prop: roles
+    rel:
+        model: \\SomeNamespace\\Role
+        map: dto
 ```
 
 Где ключ является индексом массива. 
