@@ -50,6 +50,3 @@ $post2 = new Post;
 
 $postDto = $transformer->getData($post, 'dto'); // model to data
 $transformer->fillModel($postDto, $post2, 'dto'); // data to model
-
-//print_r($postDto);
-//print_r($post2);
