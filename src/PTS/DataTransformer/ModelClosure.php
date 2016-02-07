@@ -9,6 +9,17 @@ class ModelClosure
     protected $data;
 
     /**
+     * @param string $key
+     * @param array $propRule
+     * @param mixed $default
+     * @return mixed
+     */
+    static public function getKey($key, array $propRule = [], $default = null)
+    {
+        return array_key_exists($key, $propRule) ? $propRule[$key] : $default;
+    }
+
+    /**
      * @return \Closure
      */
     public function getToDataFn()
@@ -29,8 +40,8 @@ class ModelClosure
             $props = [];
 
             foreach ($mapping as $name => $propRule) {
-                $getter = array_key_exists('get', $propRule) ? $propRule['get'] : null;
-                $propVal = array_key_exists('prop', $propRule) ? $propRule['prop'] : null;
+                $getter = ModelClosure::getKey('get', $propRule);
+                $propVal = ModelClosure::getKey('prop', $propRule);
                 $val = null;
 
                 if ($getter) {
@@ -77,8 +88,8 @@ class ModelClosure
 
                 $propRule = $mapping[$name];
 
-                $modelName = array_key_exists('prop', $propRule) ? $propRule['prop'] : $name;
-                $setter = array_key_exists('set', $propRule) ? $propRule['set'] : null;
+                $modelName = ModelClosure::getKey('prop', $propRule);
+                $setter = ModelClosure::getKey('set', $propRule);
 
                 $val = $typeConverter->toModel($val, $propRule, $transformer);
 
