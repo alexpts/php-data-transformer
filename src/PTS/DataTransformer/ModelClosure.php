@@ -34,11 +34,11 @@ class ModelClosure
                 $propVal = $propRule->getProp();
                 $val = null;
 
-                if ($getter) {
+                if ($getter !== null) {
                     $method = is_array($getter) ? $getter[0] : $getter;
                     $args = is_array($getter) ? $getter[1] : [];
                     $val = call_user_func_array([$this, $method], $args);
-                } elseif ($propVal) {
+                } elseif ($propVal !== null) {
                     $val = $this->{$propVal};
                 }
 
