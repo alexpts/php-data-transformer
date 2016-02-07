@@ -3,22 +3,23 @@ namespace PTS\DataTransformer\Types;
 
 use PTS\DataTransformer\DataTransformer;
 use PTS\DataTransformer\ModelInterface;
+use PTS\DataTransformer\PropRule;
 use Symfony\Component\Yaml\Exception\ParseException;
 
 class RefModelsType
 {
     /**
      * @param string[]|ModelInterface[] $value
-     * @param array $propRule
+     * @param PropRule $propRule
      * @param DataTransformer $transformer
      * @return mixed[]
      *
      *  @throws ParseException
      */
-    public function toData(array $value, array $propRule, DataTransformer $transformer)
+    public function toData(array $value, PropRule $propRule, DataTransformer $transformer)
     {
         $newValue = [];
-        $type = $propRule['rel']['map'];
+        $type = $propRule->getKey('rel')['map'];
         foreach ($value as $model) {
             $newValue[] = $transformer->getData($model, $type);
         }
@@ -28,16 +29,16 @@ class RefModelsType
 
     /**
      * @param array[] $value
-     * @param array $propRule
+     * @param PropRule $propRule
      * @param DataTransformer $transformer
      * @return ModelInterface
      *
      * @throws ParseException
      */
-    public function toModel($value, array $propRule, DataTransformer $transformer)
+    public function toModel($value, PropRule $propRule, DataTransformer $transformer)
     {
-        $type = $type = $propRule['rel']['map'];
-        $emptyModel = $transformer->createModel($propRule['rel']['model']);
+        $type = $propRule->getKey('rel')['map'];
+        $emptyModel = $transformer->createModel($propRule->getKey('rel')['model']);
         $models = [];
 
         foreach ($value as $one) {

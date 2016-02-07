@@ -45,32 +45,32 @@ class TypeConverter
 
     /**
      * @param mixed $val
-     * @param array $propRule
+     * @param PropRule $propRule
      * @param DataTransformer $transformer
      * @return mixed
      */
-    public function toData($val, array $propRule, DataTransformer $transformer)
+    public function toData($val, PropRule $propRule, DataTransformer $transformer)
     {
         return $this->getType($propRule)->toData($val, $propRule, $transformer);
     }
 
     /**
      * @param mixed $val
-     * @param array $propRule
+     * @param PropRule $propRule
      * @param DataTransformer $transformer
      * @return mixed
      */
-    public function toModel($val, array $propRule, DataTransformer $transformer)
+    public function toModel($val, PropRule $propRule, DataTransformer $transformer)
     {
         return $this->getType($propRule)->toModel($val, $propRule, $transformer);
     }
 
     /**
-     * @param array $propRule
+     * @param PropRule $propRule
      * @return Types\BaseType
      */
-    protected function getType(array  $propRule)
+    protected function getType(PropRule $propRule)
     {
-        return $this->types[$propRule['type']];
+        return $this->types[$propRule->getType()];
     }
 }
