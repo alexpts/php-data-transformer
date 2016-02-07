@@ -60,6 +60,7 @@ class ArrayTypeTest extends PHPUnit_Framework_TestCase
             'count' => '23',
             'user' => 'someId',
             'similarContent' => [1, 2, 4],
+            'someRelIds' => [48, 21, 4],
             'prevUsers' => [
                 [
                     'id' => 1,
@@ -87,6 +88,7 @@ class ArrayTypeTest extends PHPUnit_Framework_TestCase
         self::assertEquals($data['count'], $model->getCount());
         self::assertEquals($data['user'], $model->getUser());
         self::assertEquals($data['similarContent'], $model->getSimilarContent());
+        self::assertEquals($data['someRelIds'], $model->getSomeRelIds());
 
         self::assertCount(1, $model->getPrevUsers());
         self::assertEquals($data['prevUsers'][0]['email'], $model->getPrevUsers()[0]->getEmail());
@@ -116,6 +118,8 @@ class ArrayTypeTest extends PHPUnit_Framework_TestCase
         $content->setCount(23);
         $content->setUser($user);
         $content->setPrevUsers([$user]);
+        $content->setSomeRelIds([12, 31]);
+
 
         $similarContent = clone $content;
         $similarContent->setId('content1');
@@ -135,6 +139,7 @@ class ArrayTypeTest extends PHPUnit_Framework_TestCase
         self::assertEquals(12.345, $dto['float']);
         self::assertEquals(23, $dto['count']);
         self::assertEquals(99, $dto['user']);
+        self::assertEquals([12, 31], $dto['someRelIds']);
         self::assertEquals(['content1', 'content2'], $dto['similarContent']);
         self::assertTrue($dto['active']);
 

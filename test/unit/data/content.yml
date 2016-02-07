@@ -3,10 +3,13 @@ id:
     get: getId
 title:
     type: string
-    prop: title
 cats:
     type: array
     prop: cats
+someRelIds:
+    type: int
+    prop: someRelIds
+    coll: true
 active:
     type: bool
     prop: active

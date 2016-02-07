@@ -33,6 +33,27 @@ class TypeConverter
     }
 
     /**
+     * @param string $direction
+     * @param mixed $val
+     * @param PropRule $propRule
+     * @param DataTransformer $transformer
+     * @return mixed
+     */
+    protected function convert($direction, $val, PropRule $propRule, DataTransformer $transformer){
+        list($type, $isCollection) = $this->getType($propRule);
+        if (!$isCollection) {
+            return $type->{$direction}($val, $propRule, $transformer);
+        }
+
+        $collection = [];
+        foreach ($val as $itemVal) {
+            $collection[] = $type->{$direction}($itemVal, $propRule, $transformer);
+        }
+
+        return $collection;
+    }
+
+    /**
      * @param mixed $val
      * @param PropRule $propRule
      * @param DataTransformer $transformer
@@ -40,7 +61,7 @@ class TypeConverter
      */
     public function toData($val, PropRule $propRule, DataTransformer $transformer)
     {
-        return $this->getType($propRule)->toData($val, $propRule, $transformer);
+        return $this->convert('toData', $val, $propRule, $transformer);
     }
 
     /**
@@ -51,15 +72,17 @@ class TypeConverter
      */
     public function toModel($val, PropRule $propRule, DataTransformer $transformer)
     {
-        return $this->getType($propRule)->toModel($val, $propRule, $transformer);
+        return $this->convert('toModel', $val, $propRule, $transformer);
     }
 
     /**
      * @param PropRule $propRule
-     * @return Types\
+     * @return array
      */
     protected function getType(PropRule $propRule)
     {
-        return $this->types[$propRule->getType()];
+        $isCollection = $propRule->getKey('coll', false);
+        $type = $this->types[$propRule->getType()];
+        return [$type, $isCollection];
     }
 }

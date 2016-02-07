@@ -24,6 +24,28 @@ class ContentModel implements ModelInterface
     protected $prevUsers;
     /** @var ContentModel[] */
     protected $similarContent = [];
+    /** @var int[] */
+    protected $someRelIds = [];
+
+    /**
+     * @return int[]
+     */
+    public function getSomeRelIds()
+    {
+        return $this->someRelIds;
+    }
+
+    /**
+     * @param int[] $someRelIds
+     * @return $this
+     */
+    public function setSomeRelIds($someRelIds)
+    {
+        $this->someRelIds = $someRelIds;
+        return $this;
+    }
+
+
 
     /**
      * @return ContentModel[]
