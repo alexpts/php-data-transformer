@@ -31,7 +31,7 @@ class RefModelsType
      * @param array[] $value
      * @param PropRule $propRule
      * @param DataTransformer $transformer
-     * @return ModelInterface
+     * @return ModelInterface[]
      *
      * @throws ParseException
      */
