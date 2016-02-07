@@ -31,14 +31,14 @@ class ModelClosure
             foreach ($mapping as $dataKey => $propRule) {
                 $propRule = new PropRule($propRule);
                 $getter = $propRule->getGet();
-                $propVal = $propRule->getProp();
+                $propVal = $propRule->getProp($dataKey);
                 $val = null;
 
                 if ($getter !== null) {
                     $method = is_array($getter) ? $getter[0] : $getter;
                     $args = is_array($getter) ? $getter[1] : [];
                     $val = call_user_func_array([$this, $method], $args);
-                } elseif ($propVal !== null) {
+                } elseif ($propVal !== null && property_exists($this, $propVal)) {
                     $val = $this->{$propVal};
                 }
 
