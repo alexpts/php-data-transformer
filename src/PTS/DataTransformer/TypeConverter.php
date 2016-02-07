@@ -5,7 +5,7 @@ use PTS\DataTransformer\Types;
 
 class TypeConverter
 {
-    /** @var Types\BaseType[] */
+    /** @var array */
     protected $types;
 
     public function __construct()
@@ -29,7 +29,7 @@ class TypeConverter
      * @param Types\BaseType $type
      * @return $this
      */
-    public function addType($name, Types\BaseType $type)
+    public function addType($name, $type)
     {
         $this->types[$name] = $type;
         return $this;
@@ -51,7 +51,7 @@ class TypeConverter
      */
     public function toData($val, array $propRule, DataTransformer $transformer)
     {
-        return $this->types[$propRule['type']]->toData($val, $propRule, $transformer);
+        return $this->getType($propRule)->toData($val, $propRule, $transformer);
     }
 
     /**
@@ -62,6 +62,15 @@ class TypeConverter
      */
     public function toModel($val, array $propRule, DataTransformer $transformer)
     {
-        return $this->types[$propRule['type']]->toModel($val, $propRule, $transformer);
+        return $this->getType($propRule)->toModel($val, $propRule, $transformer);
+    }
+
+    /**
+     * @param array $propRule
+     * @return Types\BaseType
+     */
+    protected function getType(array  $propRule)
+    {
+        return $this->types[$propRule['type']];
     }
 }

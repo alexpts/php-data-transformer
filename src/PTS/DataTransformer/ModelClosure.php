@@ -4,32 +4,20 @@ namespace PTS\DataTransformer;
 class ModelClosure
 {
     /** @var \Closure */
-    protected $fillFn;
+    protected $fill;
     /** @var \Closure */
-    protected $dataFn;
+    protected $data;
 
     /**
      * @return \Closure
      */
     public function getToDataFn()
     {
-        if (!$this->dataFn) {
-            $this->dataFn = $this->createDataFn();
+        if (!$this->data) {
+            $this->data = $this->createDataFn();
         }
 
-        return $this->dataFn;
-    }
-
-    /**
-     * @return \Closure
-     */
-    public function getFillFn()
-    {
-        if (!$this->fillFn) {
-            $this->fillFn = $this->createFillFn();
-        }
-
-        return $this->fillFn;
+        return $this->data;
     }
 
     /**
@@ -60,6 +48,18 @@ class ModelClosure
 
             return $props;
         };
+    }
+
+    /**
+     * @return \Closure
+     */
+    public function getFillFn()
+    {
+        if (!$this->fill) {
+            $this->fill = $this->createFillFn();
+        }
+
+        return $this->fill;
     }
 
     /**

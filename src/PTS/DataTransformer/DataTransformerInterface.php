@@ -8,7 +8,7 @@ interface DataTransformerInterface
      * @param string $mapType
      * @return array
      */
-    public function getData(ModelInterface $model, $mapType);
+    public function getData(ModelInterface $model, $mapType = 'dto');
 
     /**
      * @param array $data

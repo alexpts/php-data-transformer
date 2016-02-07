@@ -7,9 +7,11 @@ class BaseType
 {
     /**
      * @param mixed $value
+     * @param array $propRule
+     * @param DataTransformer $transformer
      * @return mixed
      */
-    public function toModel($value)
+    public function toModel($value, array $propRule, DataTransformer $transformer)
     {
         return $value;
     }
