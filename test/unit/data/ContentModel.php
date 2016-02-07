@@ -20,6 +20,8 @@ class ContentModel implements ModelInterface
     protected $count;
     /** @var UserModel */
     protected $user;
+    /** @var UserModel[] */
+    protected $prevUsers;
     /** @var ContentModel[] */
     protected $similarContent = [];
 
@@ -33,12 +35,13 @@ class ContentModel implements ModelInterface
 
     /**
      * @param ContentModel[] $similarContent
+     * @return $this
      */
     public function setSimilarContent($similarContent)
     {
         $this->similarContent = $similarContent;
+        return $this;
     }
-
 
 
     /**
@@ -51,12 +54,13 @@ class ContentModel implements ModelInterface
 
     /**
      * @param UserModel $user
+     * @return $this
      */
     public function setUser(UserModel $user)
     {
         $this->user = $user;
+        return $this;
     }
-
 
 
     /**
@@ -69,10 +73,12 @@ class ContentModel implements ModelInterface
 
     /**
      * @param int $count
+     * @return $this
      */
     public function setCount($count)
     {
         $this->count = $count;
+        return $this;
     }
 
     /**
@@ -85,10 +91,12 @@ class ContentModel implements ModelInterface
 
     /**
      * @param float $float
+     * @return $this
      */
     public function setFloat($float)
     {
         $this->float = $float;
+        return $this;
     }
 
     /**
@@ -101,10 +109,12 @@ class ContentModel implements ModelInterface
 
     /**
      * @param string $any
+     * @return $this
      */
     public function setAny($any)
     {
         $this->any = $any;
+        return $this;
     }
 
     /**
@@ -117,10 +127,12 @@ class ContentModel implements ModelInterface
 
     /**
      * @param string $title
+     * @return $this
      */
     public function setTitle($title)
     {
         $this->title = $title;
+        return $this;
     }
 
     /**
@@ -133,10 +145,12 @@ class ContentModel implements ModelInterface
 
     /**
      * @param array $cats
+     * @return $this
      */
     public function setCats($cats)
     {
         $this->cats = $cats;
+        return $this;
     }
 
     /**
@@ -149,10 +163,12 @@ class ContentModel implements ModelInterface
 
     /**
      * @param \DateTime $creAt
+     * @return $this;
      */
     public function setCreAt($creAt)
     {
         $this->creAt = $creAt;
+        return $this;
     }
 
     /**
@@ -165,10 +181,30 @@ class ContentModel implements ModelInterface
 
     /**
      * @param boolean $active
+     * @return $this
      */
     public function setActive($active)
     {
         $this->active = $active;
+        return $this;
+    }
+
+    /**
+     * @param UserModel[] $users
+     * @return $this
+     */
+    public function setPrevUsers(array $users = [])
+    {
+        $this->prevUsers = $users;
+        return $this;
+    }
+
+    /**
+     * @return UserModel[]
+     */
+    public function getPrevUsers()
+    {
+        return $this->prevUsers;
     }
 
     public function getId()
@@ -179,5 +215,6 @@ class ContentModel implements ModelInterface
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
     }
 }

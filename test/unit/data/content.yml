@@ -28,3 +28,10 @@ user:
 similarContent:
     type: refModelsToArrayStringId
     prop: similarContent
+prevUsers:
+    type: refModels
+    set: setPrevUsers
+    get: getPrevUsers
+    rel:
+        model: PTS\DataTransformer\UserModel
+        map: dto
