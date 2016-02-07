@@ -46,6 +46,9 @@ creAt:
 email:
     type: string
     prop: email
+postsIds:
+	type: int
+	coll: true
 roles:
     type: refModels
     prop: roles
