@@ -2,6 +2,16 @@
 namespace PTS\DataTransformer;
 
 use PHPUnit_Framework_TestCase;
+use PTS\DataTransformer\Types\ArrayType;
+use PTS\DataTransformer\Types\BaseType;
+use PTS\DataTransformer\Types\BoolType;
+use PTS\DataTransformer\Types\DateType;
+use PTS\DataTransformer\Types\FloatType;
+use PTS\DataTransformer\Types\IntType;
+use PTS\DataTransformer\Types\RefModelsType;
+use PTS\DataTransformer\Types\RefModelType;
+use PTS\DataTransformer\Types\StringType;
+use PTS\DataTransformer\Types\RefModelsToArrayStringIdType;
 use Symfony\Component\Yaml\Parser;
 
 require_once __DIR__ . '/data/ContentModel.php';
@@ -19,6 +29,23 @@ class ArrayTypeTest extends PHPUnit_Framework_TestCase
             new MapsManager(new Parser),
             new ModelClosure
         );
+
+        $this->addTypesToConverter();
+    }
+
+    protected function addTypesToConverter()
+    {
+        $converter = $this->transformer->getConverter();
+        $converter->addType('proxy', new BaseType);
+        $converter->addType('int', new IntType);
+        $converter->addType('string', new StringType);
+        $converter->addType('array', new ArrayType);
+        $converter->addType('date', new DateType);
+        $converter->addType('float', new FloatType);
+        $converter->addType('bool', new BoolType);
+        $converter->addType('refModelsToArrayStringId', new RefModelsToArrayStringIdType);
+        $converter->addType('refModels', new RefModelsType);
+        $converter->addType('refModel', new RefModelType);
     }
 
     public function testToModel()
@@ -96,7 +123,6 @@ class ArrayTypeTest extends PHPUnit_Framework_TestCase
         $similarContent2->setId('content2');
 
         $content->setSimilarContent([$similarContent, $similarContent2]);
-
 
         $this->transformer->getMapsManager()->setMapDir(ContentModel::class, __DIR__ . '/data');
         $this->transformer->getMapsManager()->setMapDir(UserModel::class, __DIR__ . '/data');

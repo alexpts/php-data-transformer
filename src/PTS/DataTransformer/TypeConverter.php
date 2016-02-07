@@ -6,27 +6,16 @@ use PTS\DataTransformer\Types;
 class TypeConverter
 {
     /** @var array */
-    protected $types;
+    protected $types = [];
 
     public function __construct()
     {
-        $this->types = [
-            'proxy' => new Types\BaseType,
-            'string' => new Types\StringType,
-            'int' => new Types\IntType,
-            'array' => new Types\ArrayType,
-            'date' => new Types\DateType,
-            'float' => new Types\FloatType,
-            'bool' => new Types\BoolType,
-            'refModelsToArrayStringId' => new Types\RefModelsToArrayStringIdType,
-            'refModels' => new Types\RefModelsType,
-            'refModel' => new Types\RefModelType
-        ];
+        $this->types = [];
     }
 
     /**
      * @param string $name
-     * @param Types\BaseType $type
+     * @param Types\* $type
      * @return $this
      */
     public function addType($name, $type)
