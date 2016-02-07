@@ -13,7 +13,7 @@ class ModelClosure
      */
     public function getToDataFn()
     {
-        if (!$this->data) {
+        if ($this->data === null) {
             $this->data = $this->createDataFn();
         }
 
