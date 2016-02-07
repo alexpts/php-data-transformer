@@ -12,7 +12,7 @@ class RefModelsType
      * @param string[]|ModelInterface[] $value
      * @param PropRule $propRule
      * @param DataTransformer $transformer
-     * @return mixed[]
+     * @return array
      *
      *  @throws ParseException
      */

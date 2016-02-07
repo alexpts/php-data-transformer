@@ -56,7 +56,7 @@ class TypeConverter
 
     /**
      * @param PropRule $propRule
-     * @return Types\BaseType
+     * @return Types\
      */
     protected function getType(PropRule $propRule)
     {

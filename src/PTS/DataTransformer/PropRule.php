@@ -1,8 +1,6 @@
 <?php
 namespace PTS\DataTransformer;
 
-use PTS\DataTransformer\Types;
-
 class PropRule
 {
     /** @var array */
