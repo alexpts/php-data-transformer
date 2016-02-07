@@ -28,7 +28,7 @@ class ModelClosure
             $typeConverter = $transformer->getConverter();
             $props = [];
 
-            foreach ($mapping as $name => $propRule) {
+            foreach ($mapping as $dataKey => $propRule) {
                 $propRule = new PropRule($propRule);
                 $getter = $propRule->getGet();
                 $propVal = $propRule->getProp();
@@ -43,7 +43,7 @@ class ModelClosure
                 }
 
                 if ($val !== null) {
-                    $props[$name] = $typeConverter->toData($val, $propRule, $transformer);
+                    $props[$dataKey] = $typeConverter->toData($val, $propRule, $transformer);
                 }
             }
 
