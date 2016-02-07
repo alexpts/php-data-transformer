@@ -88,7 +88,7 @@ class ModelClosure
 
                 $propRule = $mapping[$name];
 
-                $modelName = ModelClosure::getKey('prop', $propRule);
+                $modelName = ModelClosure::getKey('prop', $propRule, $name);
                 $setter = ModelClosure::getKey('set', $propRule);
 
                 $val = $typeConverter->toModel($val, $propRule, $transformer);
