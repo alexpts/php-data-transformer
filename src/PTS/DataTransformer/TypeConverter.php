@@ -39,7 +39,8 @@ class TypeConverter
      * @param DataTransformer $transformer
      * @return mixed
      */
-    protected function convert($direction, $val, PropRule $propRule, DataTransformer $transformer){
+    protected function convert($direction, $val, PropRule $propRule, DataTransformer $transformer)
+    {
         list($type, $isCollection) = $this->getType($propRule);
         if (!$isCollection) {
             return $type->{$direction}($val, $propRule, $transformer);
