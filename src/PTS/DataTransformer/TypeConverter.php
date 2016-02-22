@@ -17,9 +17,18 @@ class TypeConverter
      * @param string $name
      * @param Types\* $type
      * @return $this
+     * @throws TypeException
      */
     public function addType($name, $type)
     {
+        if (!method_exists($type, 'toModel')) {
+            throw new TypeException('Type must implement a method toModel');
+        }
+
+        if (!method_exists($type, 'toData')) {
+            throw new TypeException('Type must implement a method toData');
+        }
+
         $this->types[$name] = $type;
         return $this;
     }

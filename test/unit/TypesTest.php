@@ -16,6 +16,8 @@ use Symfony\Component\Yaml\Parser;
 
 require_once __DIR__ . '/data/ContentModel.php';
 require_once __DIR__ . '/data/UserModel.php';
+require_once __DIR__ . '/data/BadType.php';
+require_once __DIR__ . '/data/BadType2.php';
 
 class ArrayTypeTest extends PHPUnit_Framework_TestCase
 {
@@ -149,6 +151,24 @@ class ArrayTypeTest extends PHPUnit_Framework_TestCase
         self::assertEquals($dto['prevUsers'][0]['name'], $user->getName());
         self::assertEquals($dto['prevUsers'][0]['login'], $user->getLogin());
         self::assertInstanceOf('DateTime', $dto['prevUsers'][0]['creAt']);
+    }
+
+    /**
+     * @expectedException \PTS\DataTransformer\TypeException
+     */
+    public function testBadType2()
+    {
+        $converter = $this->transformer->getConverter();
+        $converter->addType('badType2', new BadType2);
+    }
+
+    /**
+     * @expectedException \PTS\DataTransformer\TypeException
+     */
+    public function testBadType()
+    {
+        $converter = $this->transformer->getConverter();
+        $converter->addType('badType', new BadType);
     }
 
 }
