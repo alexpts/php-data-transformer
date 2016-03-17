@@ -46,7 +46,7 @@ class ModelClosure
                 $method = is_array($getter) ? $getter[0] : $getter;
                 $args = is_array($getter) ? $getter[1] : [];
                 $val = call_user_func_array([$this, $method], $args);
-            } elseif ($propVal !== null && property_exists($this, $propVal)) {
+            } elseif (property_exists($this, $propVal)) {
                 $val = $this->{$propVal};
             }
 
