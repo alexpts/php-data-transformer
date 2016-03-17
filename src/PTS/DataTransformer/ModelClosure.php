@@ -37,7 +37,8 @@ class ModelClosure
      */
     public function createGetFromModelClosure()
     {
-        return function($getter, $propVal){
+        return function($getter, $propVal)
+        {
             $val = null;
 
             if ($getter !== null) {

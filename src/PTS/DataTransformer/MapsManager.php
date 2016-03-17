@@ -42,7 +42,7 @@ class MapsManager
     public function getMap($name, $type = 'dto')
     {
         $map = $this->tryCache($name, $type);
-        if ($map) {
+        if (is_array($map)) {
             return $map;
         }
 
@@ -84,6 +84,6 @@ class MapsManager
      */
     protected function getByPath($path)
     {
-        return $this->yamlParser->parse(file_get_contents($path));
+        return (array)$this->yamlParser->parse(file_get_contents($path));
     }
 }
