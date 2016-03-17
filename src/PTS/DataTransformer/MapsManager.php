@@ -84,6 +84,6 @@ class MapsManager
      */
     protected function getByPath($path)
     {
-        return (array)$this->yamlParser->parse(file_get_contents($path));
+        return (array) $this->yamlParser->parse(file_get_contents($path));
     }
 }
