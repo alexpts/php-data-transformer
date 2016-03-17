@@ -9,7 +9,7 @@ class IntType
      */
     public function toModel($value)
     {
-        return (int)$value;
+        return (int) $value;
     }
 
     /**
@@ -18,6 +18,6 @@ class IntType
      */
     public function toData($value)
     {
-        return (int)$value;
+        return (int) $value;
     }
 }

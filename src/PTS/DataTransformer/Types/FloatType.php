@@ -9,7 +9,7 @@ class FloatType
      */
     public function toModel($value)
     {
-        return (float)$value;
+        return (float) $value;
     }
 
     /**
@@ -18,6 +18,6 @@ class FloatType
      */
     public function toData($value)
     {
-        return (float)$value;
+        return (float) $value;
     }
 }

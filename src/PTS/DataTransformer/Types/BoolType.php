@@ -9,7 +9,7 @@ class BoolType
      */
     public function toModel($value)
     {
-        return (bool)$value;
+        return (bool) $value;
     }
 
     /**
@@ -18,6 +18,6 @@ class BoolType
      */
     public function toData($value)
     {
-        return (bool)$value;
+        return (bool) $value;
     }
 }

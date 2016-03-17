@@ -9,7 +9,7 @@ class StringType
      */
     public function toModel($value)
     {
-        return (string)$value;
+        return (string) $value;
     }
 
     /**
@@ -18,6 +18,6 @@ class StringType
      */
     public function toData($value)
     {
-        return (string)$value;
+        return (string) $value;
     }
 }

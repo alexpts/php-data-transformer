@@ -9,7 +9,9 @@ class RefModelType
      */
     public function toData($value)
     {
-        return $value->getId();
+        return property_exists($value, 'getId')
+            ? $value->getId()
+            : $value;
     }
 
     /**
@@ -18,6 +20,6 @@ class RefModelType
      */
     public function toModel($value)
     {
-        return (string)$value;
+        return (string) $value;
     }
 }

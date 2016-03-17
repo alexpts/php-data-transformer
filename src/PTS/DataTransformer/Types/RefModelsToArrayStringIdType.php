@@ -15,7 +15,7 @@ class RefModelsToArrayStringIdType
     {
         $newValue = [];
         foreach ($value as $model) {
-            $relId = is_object($model) ? $model->getId() : (string)$model;
+            $relId = is_object($model) ? $model->getId() : (string) $model;
             $newValue[] = $relId;
         }
 
