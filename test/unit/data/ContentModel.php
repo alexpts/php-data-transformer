@@ -1,7 +1,7 @@
 <?php
 namespace PTS\DataTransformer;
 
-class ContentModel implements ModelInterface
+class ContentModel
 {
     protected $id;
     /** @var string */

@@ -1,6 +1,6 @@
 <?php
 
-class Post implements \PTS\DataTransformer\ModelInterface
+class Post
 {
     /** @var int */
     protected $id;

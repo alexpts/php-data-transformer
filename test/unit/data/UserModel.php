@@ -1,7 +1,7 @@
 <?php
 namespace PTS\DataTransformer;
 
-class UserModel implements ModelInterface
+class UserModel
 {
     protected $id;
     /** @var string */

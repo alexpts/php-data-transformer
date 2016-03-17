@@ -4,16 +4,16 @@ namespace PTS\DataTransformer;
 interface DataTransformerInterface
 {
     /**
-     * @param ModelInterface $model
+     * @param mixed $model
      * @param string $mapType
      * @return array
      */
-    public function getData(ModelInterface $model, $mapType = 'dto');
+    public function getData($model, $mapType = 'dto');
 
     /**
      * @param array $data
-     * @param ModelInterface $model
+     * @param mixed $model
      * @param string $mapType
      */
-    public function fillModel(array $data, ModelInterface $model, $mapType = 'dto');
+    public function fillModel(array $data, $model, $mapType = 'dto');
 }

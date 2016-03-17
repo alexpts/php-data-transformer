@@ -2,14 +2,13 @@
 namespace PTS\DataTransformer\Types;
 
 use PTS\DataTransformer\DataTransformer;
-use PTS\DataTransformer\ModelInterface;
 use PTS\DataTransformer\PropRule;
 use Symfony\Component\Yaml\Exception\ParseException;
 
 class RefModelsType
 {
     /**
-     * @param string[]|ModelInterface[] $value
+     * @param mixed[] $value
      * @param PropRule $propRule
      * @param DataTransformer $transformer
      * @return array
@@ -31,7 +30,7 @@ class RefModelsType
      * @param array[] $value
      * @param PropRule $propRule
      * @param DataTransformer $transformer
-     * @return ModelInterface[]
+     * @return mixed[]
      *
      * @throws ParseException
      */

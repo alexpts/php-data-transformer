@@ -1,13 +1,12 @@
 <?php
 namespace PTS\DataTransformer\Types;
 
-use PTS\DataTransformer\ModelInterface;
 use Symfony\Component\Yaml\Exception\ParseException;
 
 class RefModelsToArrayStringIdType
 {
     /**
-     * @param ModelInterface[] $value
+     * @param mixed[] $value
      * @return array
      *
      *  @throws ParseException

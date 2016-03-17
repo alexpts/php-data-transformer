@@ -4,89 +4,66 @@ namespace PTS\DataTransformer;
 class ModelClosure
 {
     /** @var \Closure */
-    protected $fill;
+    protected $fillModel;
     /** @var \Closure */
-    protected $data;
+    protected $fromModel;
 
     /**
      * @return \Closure
      */
-    public function getToDataFn()
+    public function getFromModel()
     {
-        if ($this->data === null) {
-            $this->data = $this->createDataFn();
+        if ($this->fromModel === null) {
+            $this->fromModel = $this->createGetFromModelClosure();
         }
 
-        return $this->data;
+        return $this->fromModel;
     }
 
     /**
      * @return \Closure
      */
-    protected function createDataFn() {
-        return function (array $mapping, DataTransformer $transformer) {
-            $typeConverter = $transformer->getConverter();
-            $props = [];
+    public function setToModel()
+    {
+        if ($this->fillModel === null) {
+            $this->fillModel = $this->createFillModelClosure();
+        }
 
-            foreach ($mapping as $dataKey => $propRule) {
-                $propRule = new PropRule($propRule);
-                $getter = $propRule->getGet();
-                $propVal = $propRule->getProp($dataKey);
-                $val = null;
+        return $this->fillModel;
+    }
 
-                if ($getter !== null) {
-                    $method = is_array($getter) ? $getter[0] : $getter;
-                    $args = is_array($getter) ? $getter[1] : [];
-                    $val = call_user_func_array([$this, $method], $args);
-                } elseif ($propVal !== null && property_exists($this, $propVal)) {
-                    $val = $this->{$propVal};
-                }
+    /**
+     * @return \Closure
+     */
+    public function createGetFromModelClosure()
+    {
+        return function(PropRule $propRule, $dataKey){
+            $getter = $propRule->getGet();
+            $propVal = $propRule->getProp($dataKey);
+            $val = null;
 
-                if ($val !== null) {
-                    $props[$dataKey] = $typeConverter->toData($val, $propRule, $transformer);
-                }
+            if ($getter !== null) {
+                $method = is_array($getter) ? $getter[0] : $getter;
+                $args = is_array($getter) ? $getter[1] : [];
+                $val = call_user_func_array([$this, $method], $args);
+            } elseif ($propVal !== null && property_exists($this, $propVal)) {
+                $val = $this->{$propVal};
             }
 
-            return $props;
+            return $val;
         };
     }
 
     /**
      * @return \Closure
      */
-    public function getFillFn()
+    public function createFillModelClosure()
     {
-        if (!$this->fill) {
-            $this->fill = $this->createFillFn();
-        }
-
-        return $this->fill;
-    }
-
-    /**
-     * @return \Closure
-     */
-    protected function createFillFn()
-    {
-        return function(array $doc, array $mapping, DataTransformer $transformer) {
-            $typeConverter = $transformer->getConverter();
-
-            foreach ($doc as $name => $val) {
-                if (!array_key_exists($name, $mapping)) {
-                    continue;
-                }
-
-                $propRule = new PropRule($mapping[$name]);
-
-                $modelName = $propRule->getProp($name);
-                $setter = $propRule->getSet();
-
-                $val = $typeConverter->toModel($val, $propRule, $transformer);
-
-                $setter
-                    ? call_user_func([$this, $setter], $val)
-                    : $this->{$modelName} = $val;
-            }
+        return function($setter, $val, $modelName)
+        {
+            $setter
+                ? call_user_func([$this, $setter], $val)
+                : $this->{$modelName} = $val;
         };
     }
 }

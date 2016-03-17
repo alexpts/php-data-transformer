@@ -41,38 +41,66 @@ class DataTransformer implements DataTransformerInterface
     }
 
     /**
-     * @param ModelInterface $model
+     * @param mixed $model
      * @param string $mapType
      * @return array
      *
      * @throws ParseException
      */
-    public function getData(ModelInterface $model, $mapType = 'dto')
+    public function getData($model, $mapType = 'dto')
     {
         $class = get_class($model);
-        $fn = \Closure::bind($this->closuresFn->getToDataFn(), $model, $class);
         $map = $this->mapsManager->getMap($class, $mapType);
-        return $fn($map, $this);
+
+        $typeConverter = $this->getConverter();
+        $fromModelClosure = $this->closuresFn->getFromModel();
+        $props = [];
+
+        foreach ($map as $dataKey => $propRule) {
+            $propRule = new PropRule($propRule);
+
+            $fn = \Closure::bind($fromModelClosure, $model, $class);
+            $val = $fn($propRule, $dataKey);
+
+            if ($val !== null) {
+                $props[$dataKey] = $typeConverter->toData($val, $propRule, $this);
+            }
+        }
+
+        return $props;
     }
 
     /**
      * @param array $data
-     * @param ModelInterface $model
+     * @param mixed $model
      * @param string $mapType
      *
      * @throws ParseException
      */
-    public function fillModel(array $data, ModelInterface $model, $mapType = 'dto')
+    public function fillModel(array $data, $model, $mapType = 'dto')
     {
         $class = get_class($model);
-        $fn = \Closure::bind($this->closuresFn->getFillFn(), $model, $class);
         $map = $this->mapsManager->getMap($class, $mapType);
-        $fn($data, $map, $this);
+
+        $typeConverter = $this->getConverter();
+        $setModelClosure = $this->closuresFn->setToModel();
+
+        foreach ($data as $name => $val) {
+            if (!array_key_exists($name, $map)) {
+                continue;
+            }
+
+            $propRule = new PropRule($map[$name]);
+            $val = $typeConverter->toModel($val, $propRule, $this);
+
+            $fn = \Closure::bind($setModelClosure, $model, $class);
+            $fn($propRule->getSet(), $val, $propRule->getProp($name));
+        }
     }
 
     /**
      * @param string $class
-     * @return ModelInterface
+     * @return mixed
      */
     public function createModel($class)
     {

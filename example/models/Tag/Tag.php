@@ -1,6 +1,6 @@
 <?php
 
-class Tag implements \PTS\DataTransformer\ModelInterface
+class Tag
 {
     /** @var int */
     protected $id;

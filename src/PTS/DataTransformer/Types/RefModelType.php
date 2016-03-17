@@ -1,15 +1,13 @@
 <?php
 namespace PTS\DataTransformer\Types;
 
-use PTS\DataTransformer\ModelInterface;
-
 class RefModelType
 {
     /**
-     * @param ModelInterface $value
+     * @param mixed $value
      * @return mixed
      */
-    public function toData(ModelInterface $value)
+    public function toData($value)
     {
         return $value->getId();
     }
