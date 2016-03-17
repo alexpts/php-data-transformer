@@ -60,7 +60,7 @@ class DataTransformer implements DataTransformerInterface
             $propRule = new PropRule($propRule);
 
             $fn = \Closure::bind($fromModelClosure, $model, $class);
-            $val = $fn($propRule, $dataKey);
+            $val = $fn($propRule->getGet(), $propRule->getProp($dataKey));
 
             if ($val !== null) {
                 $props[$dataKey] = $typeConverter->toData($val, $propRule, $this);

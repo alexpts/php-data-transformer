@@ -37,9 +37,7 @@ class ModelClosure
      */
     public function createGetFromModelClosure()
     {
-        return function(PropRule $propRule, $dataKey){
-            $getter = $propRule->getGet();
-            $propVal = $propRule->getProp($dataKey);
+        return function($getter, $propVal){
             $val = null;
 
             if ($getter !== null) {
