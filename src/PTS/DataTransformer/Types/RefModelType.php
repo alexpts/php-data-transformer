@@ -9,7 +9,7 @@ class RefModelType
      */
     public function toData($value)
     {
-        return property_exists($value, 'getId')
+        return method_exists($value, 'getId')
             ? $value->getId()
             : $value;
     }

@@ -30,6 +30,6 @@ class RefModelsToArrayStringIdType
      */
     public function toModel($value)
     {
-       return array_map('strval', $value);
+        return array_map('strval', $value);
     }
 }

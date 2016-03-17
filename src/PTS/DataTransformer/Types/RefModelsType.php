@@ -34,7 +34,7 @@ class RefModelsType
      *
      * @throws ParseException
      */
-    public function toModel($value, PropRule $propRule, DataTransformer $transformer)
+    public function toModel(array $value, PropRule $propRule, DataTransformer $transformer)
     {
         $type = $propRule->getKey('rel')['map'];
         $emptyModel = $transformer->createModel($propRule->getKey('rel')['model']);
