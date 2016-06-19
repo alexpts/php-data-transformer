@@ -15,7 +15,7 @@ class RefModelType
     }
 
     /**
-     * @param \MongoId $value
+     * @param mixed $value
      * @return string
      */
     public function toModel($value)
