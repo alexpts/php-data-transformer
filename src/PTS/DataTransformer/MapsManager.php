@@ -39,7 +39,7 @@ class MapsManager
      *
      * @throws ParseException
      */
-    public function getMap($name, $type = 'dto')
+    public function getMap($name, $type = 'dto') : array
     {
         $map = $this->tryCache($name, $type);
         if (is_array($map)) {
@@ -82,7 +82,7 @@ class MapsManager
      * @return array
      * @throws ParseException
      */
-    protected function getByPath($path)
+    protected function getByPath($path) : array
     {
         return (array) $this->yamlParser->parse(file_get_contents($path));
     }

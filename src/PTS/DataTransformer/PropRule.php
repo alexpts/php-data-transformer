@@ -44,7 +44,7 @@ class PropRule
     /**
      * @return mixed|null
      */
-    public function getGet()
+    public function getGetter()
     {
         return $this->getKey('get');
     }

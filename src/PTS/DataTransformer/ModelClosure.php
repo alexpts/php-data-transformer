@@ -35,7 +35,7 @@ class ModelClosure
     /**
      * @return \Closure
      */
-    public function createGetFromModelClosure()
+    protected function createGetFromModelClosure()
     {
         return function($getter, $propVal)
         {
@@ -56,7 +56,7 @@ class ModelClosure
     /**
      * @return \Closure
      */
-    public function createFillModelClosure()
+    protected function createFillModelClosure()
     {
         return function($setter, $val, $modelName)
         {

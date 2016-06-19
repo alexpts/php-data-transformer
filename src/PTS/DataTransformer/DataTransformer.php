@@ -6,7 +6,7 @@ use Symfony\Component\Yaml\Exception\ParseException;
 class DataTransformer implements DataTransformerInterface
 {
     /** @var ModelClosure */
-    protected $closuresFn;
+    protected $fn;
     /** @var TypeConverter */
     protected $typeConverter;
     /** @var MapsManager */
@@ -21,7 +21,7 @@ class DataTransformer implements DataTransformerInterface
     {
         $this->mapsManager = $mapsManager;
         $this->typeConverter = $converter;
-        $this->closuresFn = $closuresFn;
+        $this->fn = $closuresFn;
     }
 
     /**
@@ -52,18 +52,14 @@ class DataTransformer implements DataTransformerInterface
         $class = get_class($model);
         $map = $this->mapsManager->getMap($class, $mapType);
 
-        $typeConverter = $this->getConverter();
-        $fromModelClosure = $this->closuresFn->getFromModel();
+        $fromModelFn= $this->fn->getFromModel();
         $props = [];
 
         foreach ($map as $dataKey => $propRule) {
             $propRule = new PropRule($propRule);
-
-            $fn = \Closure::bind($fromModelClosure, $model, $class);
-            $val = $fn($propRule->getGet(), $propRule->getProp($dataKey));
-
+            $val = $fromModelFn->call($model, $propRule->getGetter(), $propRule->getProp($dataKey));
             if ($val !== null) {
-                $props[$dataKey] = $typeConverter->toData($val, $propRule, $this);
+                $props[$dataKey] = $this->getConverter()->toData($val, $propRule, $this);
             }
         }
 
@@ -83,7 +79,7 @@ class DataTransformer implements DataTransformerInterface
         $map = $this->mapsManager->getMap($class, $mapType);
 
         $typeConverter = $this->getConverter();
-        $setModelClosure = $this->closuresFn->setToModel();
+        $setModelFn = $this->fn->setToModel();
 
         foreach ($data as $name => $val) {
             if (!array_key_exists($name, $map)) {
@@ -92,9 +88,8 @@ class DataTransformer implements DataTransformerInterface
 
             $propRule = new PropRule($map[$name]);
             $val = $typeConverter->toModel($val, $propRule, $this);
-
-            $fn = \Closure::bind($setModelClosure, $model, $class);
-            $fn($propRule->getSet(), $val, $propRule->getProp($name));
+            
+            $setModelFn->call($model, $propRule->getSet(), $val, $propRule->getProp($name));
         }
     }
 

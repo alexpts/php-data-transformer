@@ -89,7 +89,7 @@ class TypeConverter
      * @param PropRule $propRule
      * @return array
      */
-    protected function getType(PropRule $propRule)
+    protected function getType(PropRule $propRule) : array
     {
         $isCollection = $propRule->getKey('coll', false);
         $type = $this->types[$propRule->getType()];
