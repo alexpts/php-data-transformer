@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 namespace PTS\DataTransformer;
 
 use Exception;
@@ -14,32 +16,17 @@ class MapsManager
     /** @var array */
     protected $mapsDirs = [];
 
-    /**
-     * @param YamlParser $parser
-     */
     public function __construct(YamlParser $parser)
     {
         $this->yamlParser = $parser;
     }
 
-    /**
-     * @param string $name
-     * @param string $dir
-     * @throws Exception
-     */
-    public function setMapDir($name, $dir)
+    public function setMapDir(string $name, string $dir)
     {
         $this->mapsDirs[$name] = $dir;
     }
 
-    /**
-     * @param string $name
-     * @param string $type
-     * @return array
-     *
-     * @throws ParseException
-     */
-    public function getMap($name, $type = 'dto') : array
+    public function getMap(string $name, string $type = 'dto'): array
     {
         $map = $this->tryCache($name, $type);
         if (is_array($map)) {
@@ -53,22 +40,12 @@ class MapsManager
         return $map;
     }
 
-    /**
-     * @param string $name
-     * @param string $type
-     * @param array $map
-     */
-    protected function setCache($name, $type, array $map)
+    protected function setCache(string $name, string $type, array $map)
     {
         $this->cache[$name][$type] = $map;
     }
 
-    /**
-     * @param string $name
-     * @param string $type
-     * @return array|null
-     */
-    protected function tryCache($name, $type)
+    protected function tryCache(string $name, string $type): ?array
     {
         if (isset($this->cache[$name], $this->cache[$name][$type])) {
             return $this->cache[$name][$type];
@@ -77,13 +54,8 @@ class MapsManager
         return null;
     }
 
-    /**
-     * @param string $path
-     * @return array
-     * @throws ParseException
-     */
-    protected function getByPath($path) : array
+    protected function getByPath(string $path): array
     {
-        return (array) $this->yamlParser->parse(file_get_contents($path));
+        return (array)$this->yamlParser->parse(file_get_contents($path));
     }
 }

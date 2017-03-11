@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 namespace PTS\DataTransformer;
 
 class ContentModel
@@ -44,7 +46,6 @@ class ContentModel
         $this->someRelIds = $someRelIds;
         return $this;
     }
-
 
 
     /**

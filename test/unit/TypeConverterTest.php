@@ -1,11 +1,13 @@
 <?php
+declare(strict_types = 1);
+
 namespace PTS\DataTransformer;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ .'/data/CustomType.php';
+require_once __DIR__ . '/data/CustomType.php';
 
-class TypeConverterTest extends PHPUnit_Framework_TestCase
+class TypeConverterTest extends TestCase
 {
     /** @var TypeConverter */
     protected $converter;

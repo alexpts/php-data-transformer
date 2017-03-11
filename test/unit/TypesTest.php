@@ -1,7 +1,9 @@
 <?php
+declare(strict_types = 1);
+
 namespace PTS\DataTransformer;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use PTS\DataTransformer\Types\ArrayType;
 use PTS\DataTransformer\Types\BaseType;
 use PTS\DataTransformer\Types\BoolType;
@@ -19,7 +21,7 @@ require_once __DIR__ . '/data/UserModel.php';
 require_once __DIR__ . '/data/BadType.php';
 require_once __DIR__ . '/data/BadType2.php';
 
-class ArrayTypeTest extends PHPUnit_Framework_TestCase
+class ArrayTypeTest extends TestCase
 {
     /** @var DataTransformer */
     protected $transformer;

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 namespace PTS\DataTransformer;
 
 use PTS\DataTransformer\Types;
@@ -16,10 +18,12 @@ class TypeConverter
     /**
      * @param string $name
      * @param Types\* $type
+     *
      * @return $this
+     *
      * @throws TypeException
      */
-    public function addType($name, $type)
+    public function addType(string $name, $type)
     {
         if (!method_exists($type, 'toModel')) {
             throw new TypeException('Type must implement a method toModel');
@@ -36,7 +40,7 @@ class TypeConverter
     /**
      * @return Types\BaseType[]
      */
-    public function getTypes()
+    public function getTypes(): array
     {
         return $this->types;
     }
@@ -46,9 +50,10 @@ class TypeConverter
      * @param mixed $val
      * @param PropRule $propRule
      * @param DataTransformer $transformer
+     *
      * @return mixed
      */
-    protected function convert($direction, $val, PropRule $propRule, DataTransformer $transformer)
+    protected function convert(string $direction, $val, PropRule $propRule, DataTransformer $transformer)
     {
         list($type, $isCollection) = $this->getType($propRule);
         if (!$isCollection) {
@@ -63,33 +68,17 @@ class TypeConverter
         return $collection;
     }
 
-    /**
-     * @param mixed $val
-     * @param PropRule $propRule
-     * @param DataTransformer $transformer
-     * @return mixed
-     */
     public function toData($val, PropRule $propRule, DataTransformer $transformer)
     {
         return $this->convert('toData', $val, $propRule, $transformer);
     }
 
-    /**
-     * @param mixed $val
-     * @param PropRule $propRule
-     * @param DataTransformer $transformer
-     * @return mixed
-     */
     public function toModel($val, PropRule $propRule, DataTransformer $transformer)
     {
         return $this->convert('toModel', $val, $propRule, $transformer);
     }
 
-    /**
-     * @param PropRule $propRule
-     * @return array
-     */
-    protected function getType(PropRule $propRule) : array
+    protected function getType(PropRule $propRule): array
     {
         $isCollection = $propRule->getKey('coll', false);
         $type = $this->types[$propRule->getType()];

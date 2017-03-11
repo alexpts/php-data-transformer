@@ -1,7 +1,9 @@
 <?php
+declare(strict_types = 1);
+
 namespace PTS\DataTransformer;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use PTS\DataTransformer\Types\ArrayType;
 use PTS\DataTransformer\Types\BaseType;
 use PTS\DataTransformer\Types\BoolType;
@@ -14,9 +16,9 @@ use PTS\DataTransformer\Types\RefModelType;
 use PTS\DataTransformer\Types\StringType;
 use Symfony\Component\Yaml\Parser;
 
-require_once __DIR__ .'/data/UserModel.php';
+require_once __DIR__ . '/data/UserModel.php';
 
-class DataTransformerTest extends PHPUnit_Framework_TestCase
+class DataTransformerTest extends TestCase
 {
     /** @var DataTransformer */
     protected $transformer;
@@ -83,6 +85,18 @@ class DataTransformerTest extends PHPUnit_Framework_TestCase
         self::assertEquals('name', $dto['name']);
         self::assertEquals('login', $dto['login']);
         self::assertTrue($dto['active']);
+    }
+
+    public function testGetDataWithExcludeFields()
+    {
+        $user = $this->createUser();
+        $this->transformer->getMapsManager()->setMapDir(UserModel::class, __DIR__ . '/data');
+        $excludeFields = ['login', 'name', 'active'];
+        $dto = $this->transformer->getData($user, 'dto', $excludeFields);
+
+        self::assertCount(2, $dto);
+        self::assertInstanceOf('DateTime', $dto['creAt']);
+        self::assertEquals('some@some.com', $dto['email']);
     }
 
     public function testFillModel()

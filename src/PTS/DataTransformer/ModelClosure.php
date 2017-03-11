@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 namespace PTS\DataTransformer;
 
 class ModelClosure
@@ -8,10 +10,7 @@ class ModelClosure
     /** @var \Closure */
     protected $fromModel;
 
-    /**
-     * @return \Closure
-     */
-    public function getFromModel()
+    public function getFromModel(): \Closure
     {
         if ($this->fromModel === null) {
             $this->fromModel = $this->createGetFromModelClosure();
@@ -20,10 +19,7 @@ class ModelClosure
         return $this->fromModel;
     }
 
-    /**
-     * @return \Closure
-     */
-    public function setToModel()
+    public function setToModel(): \Closure
     {
         if ($this->fillModel === null) {
             $this->fillModel = $this->createFillModelClosure();
@@ -32,13 +28,9 @@ class ModelClosure
         return $this->fillModel;
     }
 
-    /**
-     * @return \Closure
-     */
-    protected function createGetFromModelClosure()
+    protected function createGetFromModelClosure(): \Closure
     {
-        return function($getter, $propVal)
-        {
+        return function ($getter, $propVal) {
             $val = null;
 
             if ($getter !== null) {
@@ -53,13 +45,9 @@ class ModelClosure
         };
     }
 
-    /**
-     * @return \Closure
-     */
-    protected function createFillModelClosure()
+    protected function createFillModelClosure(): \Closure
     {
-        return function($setter, $val, $modelName)
-        {
+        return function ($setter, $val, $modelName) {
             $setter
                 ? call_user_func([$this, $setter], $val)
                 : $this->{$modelName} = $val;

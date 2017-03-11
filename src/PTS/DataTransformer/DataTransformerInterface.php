@@ -1,19 +1,11 @@
 <?php
+declare(strict_types = 1);
+
 namespace PTS\DataTransformer;
 
 interface DataTransformerInterface
 {
-    /**
-     * @param mixed $model
-     * @param string $mapType
-     * @return array
-     */
-    public function getData($model, $mapType = 'dto');
+    public function getData($model, string $mapType = 'dto', array $excludeFields = []): array;
 
-    /**
-     * @param array $data
-     * @param mixed $model
-     * @param string $mapType
-     */
-    public function fillModel(array $data, $model, $mapType = 'dto');
+    public function fillModel(array $data, $model, string $mapType = 'dto');
 }

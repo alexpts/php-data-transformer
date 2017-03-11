@@ -1,10 +1,12 @@
 <?php
+declare(strict_types = 1);
+
 namespace PTS\DataTransformer;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Parser;
 
-class MapsManagerTest extends PHPUnit_Framework_TestCase
+class MapsManagerTest extends TestCase
 {
     /** @var MapsManager */
     protected $manager;
@@ -17,6 +19,7 @@ class MapsManagerTest extends PHPUnit_Framework_TestCase
     public function testSetMapDir()
     {
         $this->manager->setMapDir('model.user', __DIR__ . '/data');
+        self::assertNotNull(1, $this->manager->getMap('model.user'));
     }
 
     public function testGetMap()

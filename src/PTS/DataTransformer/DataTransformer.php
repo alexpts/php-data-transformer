@@ -1,7 +1,7 @@
 <?php
-namespace PTS\DataTransformer;
+declare(strict_types = 1);
 
-use Symfony\Component\Yaml\Exception\ParseException;
+namespace PTS\DataTransformer;
 
 class DataTransformer implements DataTransformerInterface
 {
@@ -12,11 +12,6 @@ class DataTransformer implements DataTransformerInterface
     /** @var MapsManager */
     protected $mapsManager;
 
-    /**
-     * @param TypeConverter $converter
-     * @param MapsManager $mapsManager
-     * @param ModelClosure $closuresFn
-     */
     public function __construct(TypeConverter $converter, MapsManager $mapsManager, ModelClosure $closuresFn)
     {
         $this->mapsManager = $mapsManager;
@@ -24,38 +19,32 @@ class DataTransformer implements DataTransformerInterface
         $this->fn = $closuresFn;
     }
 
-    /**
-     * @return MapsManager
-     */
-    public function getMapsManager()
+    public function getMapsManager(): MapsManager
     {
         return $this->mapsManager;
     }
 
-    /**
-     * @return TypeConverter
-     */
-    public function getConverter()
+    public function getConverter(): TypeConverter
     {
         return $this->typeConverter;
     }
 
-    /**
-     * @param mixed $model
-     * @param string $mapType
-     * @return array
-     *
-     * @throws ParseException
-     */
-    public function getData($model, $mapType = 'dto')
+
+    public function getData($model, string $mapType = 'dto', array $excludeFields = []): array
     {
         $class = get_class($model);
         $map = $this->mapsManager->getMap($class, $mapType);
 
-        $fromModelFn= $this->fn->getFromModel();
+        $fromModelFn = $this->fn->getFromModel();
         $props = [];
 
+        $needExclude = count($excludeFields) > 0;
+
         foreach ($map as $dataKey => $propRule) {
+            if ($needExclude && in_array($dataKey, $excludeFields, true)) {
+                continue;
+            }
+
             $propRule = new PropRule($propRule);
             $val = $fromModelFn->call($model, $propRule->getGetter(), $propRule->getProp($dataKey));
             if ($val !== null) {
@@ -66,14 +55,7 @@ class DataTransformer implements DataTransformerInterface
         return $props;
     }
 
-    /**
-     * @param array $data
-     * @param mixed $model
-     * @param string $mapType
-     *
-     * @throws ParseException
-     */
-    public function fillModel(array $data, $model, $mapType = 'dto')
+    public function fillModel(array $data, $model, string $mapType = 'dto')
     {
         $class = get_class($model);
         $map = $this->mapsManager->getMap($class, $mapType);
@@ -88,16 +70,12 @@ class DataTransformer implements DataTransformerInterface
 
             $propRule = new PropRule($map[$name]);
             $val = $typeConverter->toModel($val, $propRule, $this);
-            
+
             $setModelFn->call($model, $propRule->getSet(), $val, $propRule->getProp($name));
         }
     }
 
-    /**
-     * @param string $class
-     * @return mixed
-     */
-    public function createModel($class)
+    public function createModel(string $class)
     {
         $emptyModel = new \ReflectionClass($class);
         return $emptyModel->newInstanceWithoutConstructor();

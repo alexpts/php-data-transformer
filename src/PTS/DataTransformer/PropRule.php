@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 namespace PTS\DataTransformer;
 
 class PropRule
@@ -14,45 +16,27 @@ class PropRule
         $this->map = $map;
     }
 
-    /**
-     * @param string $name
-     * @param mixed $default
-     * @return null|mixed
-     */
-    public function getKey($name, $default = null)
+    public function getKey(string $name, $default = null)
     {
-        return  array_key_exists($name, $this->map) ? $this->map[$name] : $default;
+        return array_key_exists($name, $this->map) ? $this->map[$name] : $default;
     }
 
-    /**
-     * @param string|null $default
-     * @return string|null
-     */
-    public function getProp($default = null)
+    public function getProp(string $default = null): ?string
     {
         return $this->getKey('prop', $default);
     }
 
-    /**
-     * @return mixed|null
-     */
     public function getSet()
     {
         return $this->getKey('set');
     }
 
-    /**
-     * @return mixed|null
-     */
     public function getGetter()
     {
         return $this->getKey('get');
     }
 
-    /**
-     * @return string
-     */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->getKey('type');
     }

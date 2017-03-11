@@ -1,9 +1,11 @@
 <?php
+declare(strict_types = 1);
+
 namespace PTS\DataTransformer;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ModelClosureTest extends PHPUnit_Framework_TestCase
+class ModelClosureTest extends TestCase
 {
     public function testGettersCache()
     {
