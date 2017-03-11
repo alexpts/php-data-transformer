@@ -3,8 +3,6 @@ declare(strict_types = 1);
 
 namespace PTS\DataTransformer;
 
-use Exception;
-use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Parser as YamlParser;
 
 class MapsManager
