@@ -29,6 +29,16 @@ class DataTransformer implements DataTransformerInterface
         return $this->typeConverter;
     }
 
+    public function getDataCollection(array $models, string $mapType = 'dto', array $excludeFields = []): array
+    {
+        $result = [];
+
+        foreach ($models as $i => $model) {
+            $result[$i] = $this->getData($model, $mapType, $excludeFields);
+        }
+
+        return $result;
+    }
 
     public function getData($model, string $mapType = 'dto', array $excludeFields = []): array
     {

@@ -87,6 +87,23 @@ class DataTransformerTest extends TestCase
         self::assertTrue($dto['active']);
     }
 
+    public function testGetDataCollection()
+    {
+        $user1 = $this->createUser();
+        $user2 = $this->createUser();
+
+        $this->transformer->getMapsManager()->setMapDir(UserModel::class, __DIR__ . '/data');
+        $result = $this->transformer->getDataCollection([$user1, $user2], 'dto');
+
+        self::assertCount(2, $result);
+        $dto1 = $result[1];
+        self::assertInstanceOf('DateTime', $dto1['creAt']);
+        self::assertEquals('some@some.com', $dto1['email']);
+        self::assertEquals('name', $dto1['name']);
+        self::assertEquals('login', $dto1['login']);
+        self::assertTrue($dto1['active']);
+    }
+
     public function testGetDataWithExcludeFields()
     {
         $user = $this->createUser();
