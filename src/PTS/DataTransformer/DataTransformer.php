@@ -38,10 +38,8 @@ class DataTransformer implements DataTransformerInterface
         $fromModelFn = $this->fn->getFromModel();
         $props = [];
 
-        $needExclude = count($excludeFields) > 0;
-
         foreach ($map as $dataKey => $propRule) {
-            if ($needExclude && in_array($dataKey, $excludeFields, true)) {
+            if (in_array($dataKey, $excludeFields, true)) {
                 continue;
             }
 

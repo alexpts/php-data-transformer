@@ -30,7 +30,7 @@ class ModelClosure
 
     protected function createGetFromModelClosure(): \Closure
     {
-        return function ($getter, $propVal) {
+        return function($getter, $propVal) {
             $val = null;
 
             if ($getter !== null) {
@@ -47,7 +47,7 @@ class ModelClosure
 
     protected function createFillModelClosure(): \Closure
     {
-        return function ($setter, $val, $modelName) {
+        return function($setter, $val, $modelName) {
             $setter
                 ? call_user_func([$this, $setter], $val)
                 : $this->{$modelName} = $val;
