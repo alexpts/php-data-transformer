@@ -8,7 +8,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alexpts/php-data-transformer/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/alexpts/php-data-transformer/?branch=master)
 
 
-Более новый несовместимый вариант библиотеки - https://github.com/alexpts/php-hydrator
+Более новый и гибкий вариант библиотеки - https://github.com/alexpts/php-data-transformer2
 
 Одни и те же данные нужно представить в разном виде. В коде удобно работать с высокоуровневыми моделями. Но для сохранения этих данных в базу данных, как правило, данные требуется перевести в более простой вид, обычно в ассоциативный массив. Для передачи данных между приложениями используют простые DTO сущности.
 
