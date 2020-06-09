@@ -1,5 +1,9 @@
 # php-data-transformer
 
+> ## Repository abandoned 2019-12-31
+>
+> This repository has moved to [alexpts/php-data-transformer2](https://github.com/alexpts/php-data-transformer2).
+
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/de0407d9-12fe-4d3d-a688-9b29b10a0e46/big.png)](https://insight.sensiolabs.com/projects/de0407d9-12fe-4d3d-a688-9b29b10a0e46)
 
 [![Build Status](https://travis-ci.org/alexpts/php-data-transformer.svg?branch=master)](https://travis-ci.org/alexpts/php-data-transformer)
